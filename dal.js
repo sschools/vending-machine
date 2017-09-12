@@ -31,7 +31,12 @@ function buyItem(id, money) {
   })
 }
 
+function getAllPurchases() {
+  return Purchase.find();
+}
+
 module.exports = {
   getAllItems,
-  buyItem
+  buyItem,
+  getAllPurchases
 }

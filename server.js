@@ -1,5 +1,5 @@
 const express = require("express");
-const {getAllItems, buyItem} = require("./dal");
+const {getAllItems, buyItem, getAllPurchases} = require("./dal");
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const app = express();
@@ -11,11 +11,17 @@ app.get("/vending/customer/items", function(req, res) {
   getAllItems().then(function(items) {
     res.json({status: "Success", data: items});
   })
-})
+});
 
 app.post("/vending/customer/items/:itemId/purchases", function(req, res) {
   buyItem(req.body.item, req.body.money).then(function(obj) {
     res.json(obj)
+  })
+});
+
+app.get("/vending/vendor/purchases", function(req, res) {
+  getAllPurchases().then(function(purchases) {
+    res.json({status: "Success", data: purchases});
   })
 })
 
