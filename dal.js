@@ -50,10 +50,39 @@ function addItem(item) {
   return newItem.save();
 }
 
+function updateItem(delta) {
+  return Item.findOne({"_id":delta._id}).then(function(item) {
+    let newDescription;
+    let newCost;
+    let newQuantity;
+    if (delta.description) {
+      newDescription = delta.description;
+    } else {
+      newDescription = item.description;
+    }
+    if (delta.cost) {
+      newCost = delta.cost;
+    } else {
+      newCost = item.cost;
+    }
+    if (delta.quantity) {
+      newQuantity = delta.quantity;
+    } else {
+      newQuantity = item.quantity;
+    }
+    return Item.updateOne(item,
+    {$set: {"description": newDescription,
+    "cost": newCost,
+    "quantity": newQuantity}
+    })
+  })
+}
+
 module.exports = {
   getAllItems,
   buyItem,
   getAllPurchases,
   getTotalMoney,
-  addItem
+  addItem,
+  updateItem
 }

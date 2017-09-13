@@ -1,8 +1,9 @@
 const express = require("express");
-const {getAllItems, buyItem, getAllPurchases, getTotalMoney, addItem} = require("./dal");
+const {getAllItems, buyItem, getAllPurchases, getTotalMoney, addItem, updateItem} = require("./dal");
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const app = express();
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -36,6 +37,12 @@ app.post("/vending/vendor/items", function(req, res) {
     res.json({status: "Success", data: obj});
   });
 });
+
+app.put("/vending/vendor/items/:itemId", function(req, res) {
+  updateItem(req.body).then(function(obj) {
+    res.json({status: "Success", data: obj});
+  })
+})
 
 app.listen(3000, function () {
   console.log("Vending Machine API is running on: 3000");
