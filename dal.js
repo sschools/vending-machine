@@ -35,8 +35,19 @@ function getAllPurchases() {
   return Purchase.find();
 }
 
+function getTotalMoney() {
+  return Purchase.find().then(function(purchases) {
+    let total = 0;
+    for (i=0; i < purchases.length; i++) {
+      total += purchases[i].cost;
+    }
+    return total;
+  })
+}
+
 module.exports = {
   getAllItems,
   buyItem,
-  getAllPurchases
+  getAllPurchases,
+  getTotalMoney
 }

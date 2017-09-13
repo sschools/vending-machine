@@ -1,5 +1,5 @@
 const express = require("express");
-const {getAllItems, buyItem, getAllPurchases} = require("./dal");
+const {getAllItems, buyItem, getAllPurchases, getTotalMoney} = require("./dal");
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const app = express();
@@ -23,7 +23,13 @@ app.get("/vending/vendor/purchases", function(req, res) {
   getAllPurchases().then(function(purchases) {
     res.json({status: "Success", data: purchases});
   })
-})
+});
+
+app.get("/vending/vendor/money", function(req, res) {
+  getTotalMoney().then(function(amount) {
+    res.json({status: "Success", data: amount})
+  })
+});
 
 app.listen(3000, function () {
   console.log("Vending Machine API is running on: 3000");
