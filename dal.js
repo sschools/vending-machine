@@ -45,9 +45,15 @@ function getTotalMoney() {
   })
 }
 
+function addItem(item) {
+  let newItem = new Item(item);
+  return newItem.save();
+}
+
 module.exports = {
   getAllItems,
   buyItem,
   getAllPurchases,
-  getTotalMoney
+  getTotalMoney,
+  addItem
 }
